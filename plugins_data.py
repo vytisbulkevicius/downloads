@@ -55,10 +55,11 @@ for plugin_slug in plugins:
         # Ensure the new file is tracked by Git
         os.system(f'git add {data_file}')
 
+
 # Configure Git user identity
 os.system('git config --global user.email "b.vytis@gmail.com"')
 os.system('git config --global user.name "vytisbulkevicius"')
 
 # Commit and push the updated files
-os.system(f'git commit -m "Update plugin downloads data for {today_date}"')
+os.system(f'git commit -m "Update plugin downloads data for {yesterday_date}"')
 os.system('git push origin main')
