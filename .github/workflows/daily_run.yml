@@ -29,4 +29,4 @@ jobs:
 
     - name: Run Python script
       run: python neve_data.py
-
+      run: python plugins_data.py
