@@ -1,27 +1,27 @@
 import requests
 import os
-from datetime import datetime
+from datetime import datetime, timedelta
 
 # List of plugin slugs
-plugins = ['feedzy-rss-feeds', 'visualizer', 'wpcf7-redirect', 'woocommerce-product-addon', 'otter-blocks', 'themeisle-companion', 'multiple-pages-generator-by-porthas', 'menu-icons', 'wp-maintenance-mode', 'templates-patterns-collection', 'blocks-export-import', 'blocks-css', 'blocks-animation', 'optimole-wp', 'media-library-organizer', 'wp-cloudflare-page-cache', 'tweet-old-post']  # Add more plugin slugs as needed
+plugins = ['feedzy-rss-feeds', 'other-plugin-slug-1', 'other-plugin-slug-2']  # Add more plugin slugs as needed
 
-# Function to get today's download count for a plugin
-def get_today_downloads(plugin_slug):
+# Function to get yesterday's download count for a plugin
+def get_yesterday_downloads(plugin_slug):
     api_url = f'https://api.wordpress.org/stats/plugin/1.0/downloads.php?slug={plugin_slug}&limit=2'
     try:
         response = requests.get(api_url)
         data = response.json()
 
-        # Get today's date
-        today_date = datetime.now().strftime('%Y-%m-%d')
+        # Get yesterday's date
+        yesterday_date = (datetime.now() - timedelta(1)).strftime('%Y-%m-%d')
 
-        # Check if today's data is available
-        if today_date in data:
-            downloads_today = int(data[today_date])
-            return today_date, downloads_today
+        # Check if yesterday's data is available
+        if yesterday_date in data:
+            downloads_yesterday = int(data[yesterday_date])
+            return yesterday_date, downloads_yesterday
         else:
-            print(f"No download data available for today ({today_date}) for plugin '{plugin_slug}'.")
-            return today_date, 0
+            print(f"No download data available for yesterday ({yesterday_date}) for plugin '{plugin_slug}'.")
+            return yesterday_date, 0
 
     except Exception as e:
         print(f"An error occurred for plugin '{plugin_slug}': {e}")
@@ -29,10 +29,10 @@ def get_today_downloads(plugin_slug):
 
 # Process each plugin
 for plugin_slug in plugins:
-    # Get today's downloads
-    today_date, downloads_today = get_today_downloads(plugin_slug)
+    # Get yesterday's downloads
+    yesterday_date, downloads_yesterday = get_yesterday_downloads(plugin_slug)
 
-    if downloads_today is not None:
+    if downloads_yesterday is not None:
         # File to store the download data for the plugin
         data_file = f'{plugin_slug}_downloads_data.txt'
 
@@ -44,13 +44,13 @@ for plugin_slug in plugins:
         add_header = not file_exists or (file_exists and not open(data_file).readline().startswith("Date"))
 
         # Print the results
-        print(f"Today's downloads for plugin '{plugin_slug}': {downloads_today}")
+        print(f"Yesterday's downloads for plugin '{plugin_slug}': {downloads_yesterday}")
 
         # Append the header if needed and the new data to the file
         with open(data_file, 'a') as file:
             if add_header:
                 file.write(header)
-            file.write(f"{today_date},{downloads_today}\n")
+            file.write(f"{yesterday_date},{downloads_yesterday}\n")
 
         # Ensure the new file is tracked by Git
         os.system(f'git add {data_file}')
