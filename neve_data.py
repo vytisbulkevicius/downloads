@@ -62,11 +62,13 @@ for theme_slug in themes:
             file.write(header)
         file.write(f"{total_downloads},{today_date},{today_downloads}\n")
 
+    # Ensure the new files are tracked by Git
+    os.system(f'git add {data_file}')
+
 # Configure Git user identity
 os.system('git config --global user.email "b.vytis@gmail.com"')
 os.system('git config --global user.name "vytisbulkevicius"')
 
 # Save the updated file to the repository by committing and pushing it
-os.system('git add downloads_data.txt')
 os.system(f'git commit -m "Update downloads data for {today_date}"')
 os.system('git push origin main')
