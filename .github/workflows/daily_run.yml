@@ -28,5 +28,6 @@ jobs:
       run: pip install -r requirements.txt
 
     - name: Run Python script
-      run: python neve_data.py
-      run: python plugins_data.py
+      run: |
+        python neve_data.py
+        python plugins_data.py
