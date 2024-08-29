@@ -55,6 +55,10 @@ print(f"Today's downloads: {today_downloads}")
 with open(data_file, 'a') as file:
     file.write(f"{total_downloads},{today_date},{today_downloads}\n")
 
+# Configure Git user identity
+os.system('git config --global user.email "b.vytis@gmail.com"')
+os.system('git config --global user.name "vytisbulkevicius"')
+
 # Save the updated file to the repository by committing and pushing it
 os.system('git add downloads_data.txt')
 os.system(f'git commit -m "Update downloads data for {today_date}"')
