@@ -16,5 +16,8 @@ payload = {
 response = requests.get(api_url, params=payload)
 theme_data = response.json()
 
-# Display the response to see available data
-print(theme_data)
+# Extract total downloads
+total_downloads = theme_data.get('downloaded')
+
+# Print the total downloads
+print(f"Total downloads for theme '{theme_slug}': {total_downloads}")
