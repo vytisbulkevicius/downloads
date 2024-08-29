@@ -3,7 +3,7 @@ import os
 from datetime import datetime, timedelta
 
 # List of plugin slugs
-plugins = ['feedzy-rss-feeds', 'other-plugin-slug-1', 'other-plugin-slug-2']  # Add more plugin slugs as needed
+plugins = ['feedzy-rss-feeds', 'visualizer', 'wpcf7-redirect', 'woocommerce-product-addon', 'otter-blocks', 'themeisle-companion', 'multiple-pages-generator-by-porthas', 'menu-icons', 'wp-maintenance-mode', 'templates-patterns-collection', 'blocks-export-import', 'blocks-css', 'blocks-animation', 'optimole-wp', 'media-library-organizer', 'wp-cloudflare-page-cache', 'tweet-old-post']  # Add more plugin slugs as needed
 
 # Function to get yesterday's download count for a plugin
 def get_yesterday_downloads(plugin_slug):
